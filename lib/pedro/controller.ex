@@ -8,6 +8,13 @@ defmodule Pedro.Controller do
     |> send_resp(status, Jason.encode!(data))
   end
 
+  def render(conn, :html, html) do
+    status = conn.status || 200
+    conn
+    |> put_resp_content_type("text/html")
+    |> send_resp(status, html)
+  end
+
   def redirect(conn, to: url) do
     body = redirection_body(url)
     status = conn.status || 302
